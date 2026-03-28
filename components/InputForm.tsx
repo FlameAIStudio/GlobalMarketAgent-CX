@@ -16,22 +16,46 @@ interface DemoCase {
 
 const DEMO_CASES: DemoCase[] = [
   {
-    label: "Main Demo",
+    label: "Earbuds",
     keyword: "wireless earbuds",
     region: "US",
     platform: "Amazon"
   },
   {
-    label: "Backup Demo",
+    label: "Pet Brush",
     keyword: "pet grooming brush",
     region: "SEA",
     platform: "TikTok"
   },
   {
-    label: "Alt Demo",
+    label: "Yoga Mat",
     keyword: "yoga mat",
     region: "US",
     platform: "Amazon"
+  },
+  {
+    label: "Portable Blender",
+    keyword: "portable blender",
+    region: "US",
+    platform: "Amazon"
+  },
+  {
+    label: "Standing Desk",
+    keyword: "standing desk",
+    region: "US",
+    platform: "Amazon"
+  },
+  {
+    label: "Rice Cooker JP",
+    keyword: "rice cooker",
+    region: "JP",
+    platform: "Amazon"
+  },
+  {
+    label: "Serum SEA",
+    keyword: "vitamin c serum",
+    region: "SEA",
+    platform: "TikTok"
   }
 ];
 

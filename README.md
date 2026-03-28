@@ -23,6 +23,10 @@ npm run dev:clean
 1. `wireless earbuds` + `US` + `Amazon`
 2. `pet grooming brush` + `SEA` + `TikTok`
 3. `yoga mat` + `US` + `Amazon`
+4. `portable blender` + `US` + `Amazon`
+5. `standing desk` + `US` + `Amazon`
+6. `rice cooker` + `JP` + `Amazon`
+7. `vitamin c serum` + `SEA` + `TikTok`
 
 ## Scoring Profiles
 
@@ -45,6 +49,7 @@ Set `ENABLE_LLM=true` to enable a simulated "LLM refinement" step in `/api/analy
 - `POST /api/analyze` validates keyword length and input enums.
 - Rate limit returns `429` with `Retry-After`.
 - Error payload includes `error_code` and `request_id`.
+- Data is benchmark mock data (directional), calibrated for plausible price/rating/review ranges.
 
 ## GitHub Pages
 

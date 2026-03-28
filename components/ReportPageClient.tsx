@@ -203,6 +203,10 @@ export default function ReportPageClient() {
         Context: <span className="text-text">{safeRegion}</span> /{" "}
         <span className="text-text">{safePlatform}</span> /{" "}
         <span className="text-text">{SCORE_PROFILE_CONFIG[scoreProfile].label}</span>
+        <p className="mt-2 text-xs text-textdim">
+          Data mode: curated benchmark mock data calibrated to realistic marketplace ranges,
+          not live scraping.
+        </p>
       </section>
 
       {isLoading && <LoadingSteps onComplete={handleLoadingComplete} />}

@@ -176,5 +176,264 @@ export const DATASETS: DatasetCase[] = [
           "Launch with Amazon SEO-rich listings and creator-led routine videos, then retarget on social with durability testimonials."
       }
     }
+  },
+  {
+    id: "portable-blender-amazon-us",
+    keywordTriggers: ["portable blender", "blender", "smoothie blender", "usb blender"],
+    product: "portable blender",
+    region: "US",
+    platform: "Amazon",
+    report: {
+      summary:
+        "Portable blenders in the US are driven by convenience and fitness-driven snacking behavior. Conversion depends on proof of blend quality, easy cleaning, and battery reliability. Mid-tier products with strong demo content can still outperform lower-price listings with weak trust signals.",
+      competitors: [
+        {
+          name: "BlendGo Mini Pro",
+          price: "$29.99",
+          rating: 4.4,
+          reviews: "7,820",
+          features: ["USB-C charge", "16oz cup", "Self-clean mode", "Leak lock lid"]
+        },
+        {
+          name: "NutriMix Travel Cup",
+          price: "$39.50",
+          rating: 4.3,
+          reviews: "5,410",
+          features: ["6-blade motor", "Pulse mode", "BPA-free jar", "Carry strap"]
+        },
+        {
+          name: "FreshSpin On-the-Go",
+          price: "$49.00",
+          rating: 4.5,
+          reviews: "3,360",
+          features: ["18,000 rpm", "Dual safety lock", "Long battery life"]
+        },
+        {
+          name: "VitaPocket Max",
+          price: "$62.00",
+          rating: 4.2,
+          reviews: "1,980",
+          features: ["Ice-crush mode", "Insulated bottle", "Quick rinse design"]
+        }
+      ],
+      price_analysis: {
+        budget: "$18 - $30",
+        mid: "$31 - $50",
+        premium: "$51 - $79",
+        insight:
+          "The $31-$50 segment balances conversion and margin when product demos clearly show smooth blending and easy cleanup."
+      },
+      customer_insights: [
+        "Buyers focus on blend smoothness, leak prevention, and how fast the cup can be cleaned.",
+        "Frequent complaints include weak motors, short battery life, and plastic odor after repeat use.",
+        "A gap exists for a durability-first portable blender with verified battery cycles and stronger warranty messaging."
+      ],
+      gtm: {
+        positioning:
+          "Reliable everyday portable blender for commuters and fitness users who prioritize convenience and consistency.",
+        messaging:
+          "Show one-minute recipe demos and side-by-side blend consistency proof with a clear durability promise.",
+        channel_strategy:
+          "Use Amazon video-heavy listings and creator recipe shorts, then retarget with lifestyle and review-based creatives."
+      }
+    }
+  },
+  {
+    id: "standing-desk-amazon-us",
+    keywordTriggers: [
+      "standing desk",
+      "sit stand desk",
+      "adjustable desk",
+      "electric desk"
+    ],
+    product: "standing desk",
+    region: "US",
+    platform: "Amazon",
+    report: {
+      summary:
+        "US standing desks remain a high-intent category where trust in stability and assembly quality drives purchase decisions. Buyers compare load capacity, wobble control, and warranty terms. Mid-range SKUs with clearer quality proof can still capture share from commodity listings.",
+      competitors: [
+        {
+          name: "LiftEdge 48",
+          price: "$239.00",
+          rating: 4.5,
+          reviews: "6,240",
+          features: ["Dual motor", "Memory presets", "220 lb load", "Cable tray"]
+        },
+        {
+          name: "WorkRise S2",
+          price: "$299.00",
+          rating: 4.4,
+          reviews: "4,380",
+          features: ["Quiet lift", "55 inch top", "Anti-collision", "Steel frame"]
+        },
+        {
+          name: "MotionDesk Core",
+          price: "$379.00",
+          rating: 4.3,
+          reviews: "2,910",
+          features: ["Extended height range", "Fast assembly", "5-year frame warranty"]
+        },
+        {
+          name: "AtlasDesk Pro",
+          price: "$529.00",
+          rating: 4.4,
+          reviews: "1,520",
+          features: ["Solid wood top", "High load support", "Premium finish"]
+        }
+      ],
+      price_analysis: {
+        budget: "$149 - $239",
+        mid: "$240 - $399",
+        premium: "$400 - $699",
+        insight:
+          "Most scalable demand sits in the $240-$399 band when stability proof and warranty confidence are explicit."
+      },
+      customer_insights: [
+        "Customers care about wobble-free typing at standing height and smooth motor noise levels.",
+        "Main complaints mention difficult assembly, uneven lifting, and delayed customer support response.",
+        "There is room for a quality-assurance angle with assembly simplicity and stronger post-purchase support."
+      ],
+      gtm: {
+        positioning:
+          "A stability-first standing desk positioned for remote professionals upgrading from entry-level setups.",
+        messaging:
+          "Lead with measurable stability and easy assembly proof, backed by warranty and support response commitments.",
+        channel_strategy:
+          "Prioritize Amazon comparison charts, long-form product video, and conversion retargeting with user setup testimonials."
+      }
+    }
+  },
+  {
+    id: "rice-cooker-amazon-jp",
+    keywordTriggers: [
+      "rice cooker",
+      "mini rice cooker",
+      "induction rice cooker",
+      "japanese rice cooker"
+    ],
+    product: "rice cooker",
+    region: "JP",
+    platform: "Amazon",
+    report: {
+      summary:
+        "In Japan, rice cooker demand is quality-sensitive with strong repeat trust around texture consistency and durability. Buyers evaluate heating mode, pot quality, and ease of cleaning. Mid-tier induction options remain the main value band for growth-oriented entrants.",
+      competitors: [
+        {
+          name: "KomeSmart IH 3L",
+          price: "JPY 11,800",
+          rating: 4.5,
+          reviews: "3,420",
+          features: ["IH heating", "Quick cook mode", "24h keep warm", "Non-stick inner pot"]
+        },
+        {
+          name: "RiceMate Compact",
+          price: "JPY 8,980",
+          rating: 4.4,
+          reviews: "4,160",
+          features: ["Small kitchen fit", "Easy lid clean", "Timer presets"]
+        },
+        {
+          name: "UmamiCook Pro",
+          price: "JPY 15,500",
+          rating: 4.6,
+          reviews: "2,270",
+          features: ["Pressure + IH", "Texture control", "Steam basket"]
+        },
+        {
+          name: "DailyKome Basic",
+          price: "JPY 6,980",
+          rating: 4.3,
+          reviews: "2,980",
+          features: ["Simple one-button mode", "Low energy", "Compact body"]
+        }
+      ],
+      price_analysis: {
+        budget: "JPY 5,500 - 8,999",
+        mid: "JPY 9,000 - 14,999",
+        premium: "JPY 15,000 - 29,000",
+        insight:
+          "The mid-tier induction segment captures the strongest tradeoff between quality perception and conversion volume."
+      },
+      customer_insights: [
+        "Users prioritize rice texture consistency, cleaning convenience, and long-term reliability.",
+        "Common complaints mention scratched inner pots, confusing menu systems, and uneven keep-warm performance.",
+        "A gap exists for a cleaner UX model that combines induction quality with simpler daily operation."
+      ],
+      gtm: {
+        positioning:
+          "Mid-tier induction rice cooker for daily households seeking reliable texture and easy operation.",
+        messaging:
+          "Emphasize texture consistency tests, durable inner-pot quality, and straightforward controls for daily use.",
+        channel_strategy:
+          "Focus Amazon JP search capture on use-case terms, then reinforce trust with review snippets and appliance comparison pages."
+      }
+    }
+  },
+  {
+    id: "vitamin-c-serum-tiktok-sea",
+    keywordTriggers: [
+      "vitamin c serum",
+      "face serum",
+      "niacinamide serum",
+      "skincare serum"
+    ],
+    product: "vitamin c serum",
+    region: "SEA",
+    platform: "TikTok",
+    report: {
+      summary:
+        "Skincare serums in SEA on short-video commerce are highly content-driven with rapid hook fatigue. Conversions are strongest when creators show texture, absorption, and before/after timelines with credibility signals. Mid-price products with trust framing can scale faster than ultra-low-price items.",
+      competitors: [
+        {
+          name: "GlowDrop C10",
+          price: "$7.90",
+          rating: 4.5,
+          reviews: "6,110",
+          features: ["10% vitamin C", "Light texture", "Day-use safe"]
+        },
+        {
+          name: "ClearTone Niacinamide 5",
+          price: "$6.50",
+          rating: 4.4,
+          reviews: "5,430",
+          features: ["Barrier support", "Oil control", "Fragrance free"]
+        },
+        {
+          name: "Radiance Lab C+E",
+          price: "$11.90",
+          rating: 4.6,
+          reviews: "3,240",
+          features: ["Dual antioxidant", "Fast absorb", "Dropper bottle"]
+        },
+        {
+          name: "PureSkin Bright Repair",
+          price: "$14.20",
+          rating: 4.3,
+          reviews: "1,980",
+          features: ["Dark spot focus", "Hydration blend", "Travel size"]
+        }
+      ],
+      price_analysis: {
+        budget: "$4 - $7",
+        mid: "$8 - $13",
+        premium: "$14 - $22",
+        insight:
+          "The $8-$13 band scales best when social proof and ingredient transparency are visible in creator content."
+      },
+      customer_insights: [
+        "Shoppers care about irritation risk, visible brightening over time, and lightweight non-sticky feel.",
+        "Top complaints mention oxidation issues, misleading concentration claims, and unclear usage guidance.",
+        "There is room for a trust-led serum brand with transparent ingredient percentages and stability proof."
+      ],
+      gtm: {
+        positioning:
+          "Trust-first brightening serum with clear ingredient transparency and low-irritation positioning.",
+        messaging:
+          "Use evidence-led scripts around ingredient percentages, routine steps, and realistic timeline expectations.",
+        channel_strategy:
+          "Scale through TikTok creator affiliates, then double down on winning hooks with localized language and skin-type variants."
+      }
+    }
   }
 ];
