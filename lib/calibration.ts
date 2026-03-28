@@ -45,6 +45,35 @@ const formatMoney = (value: number, currency: Currency): string => {
   return `$${value.toLocaleString("en-US")}`;
 };
 
+const computeMedian = (sorted: number[]): number => {
+  if (sorted.length === 0) {
+    return 0;
+  }
+
+  const lowerMidIndex = Math.floor((sorted.length - 1) / 2);
+  const upperMidIndex = Math.ceil((sorted.length - 1) / 2);
+  return (sorted[lowerMidIndex] + sorted[upperMidIndex]) / 2;
+};
+
+const pickStep = (currency: Currency, sortedValues: number[]): number => {
+  const median = computeMedian(sortedValues);
+
+  if (currency === "JPY") {
+    return median < 12000 ? 500 : 1000;
+  }
+
+  if (median < 25) {
+    return 1;
+  }
+  if (median < 80) {
+    return 5;
+  }
+  if (median < 220) {
+    return 10;
+  }
+  return 25;
+};
+
 const normalizeReviews = (reviews: string): string => {
   const numeric = Number.parseInt(reviews.replace(/[^0-9]/g, ""), 10);
   if (!Number.isFinite(numeric) || numeric <= 0) {
@@ -52,7 +81,14 @@ const normalizeReviews = (reviews: string): string => {
   }
 
   const clamped = Math.round(clamp(numeric, 500, 200000));
-  return clamped.toLocaleString("en-US");
+  if (clamped < 2000) {
+    return (Math.round(clamped / 10) * 10).toLocaleString("en-US");
+  }
+  if (clamped < 20000) {
+    return (Math.round(clamped / 50) * 50).toLocaleString("en-US");
+  }
+
+  return (Math.round(clamped / 100) * 100).toLocaleString("en-US");
 };
 
 const normalizeCompetitor = (competitor: Competitor): Competitor => {
@@ -70,30 +106,29 @@ const buildCalibratedPriceAnalysis = (
 ): PriceAnalysis => {
   const sorted = [...values].sort((left, right) => left - right);
   const min = sorted[0];
-  const second = sorted[Math.min(1, sorted.length - 1)];
-  const third = sorted[Math.min(2, sorted.length - 1)];
+  const lowerMid = sorted[Math.floor((sorted.length - 1) / 2)];
+  const upperMid = sorted[Math.ceil((sorted.length - 1) / 2)];
   const max = sorted[sorted.length - 1];
+  const step = pickStep(currency, sorted);
+  const minimumBandWidth = step * (currency === "JPY" ? 4 : 3);
+  const premiumMultiplier = currency === "JPY" ? 1.28 : 1.22;
 
-  const step = currency === "JPY" ? 500 : 1;
-  const premiumMultiplier = currency === "JPY" ? 1.3 : 1.25;
-
-  let budgetLow = roundDown(min * 0.72, step);
-  const budgetHigh = roundUp(second, step);
-
-  if (budgetLow >= budgetHigh) {
-    budgetLow = Math.max(step, budgetHigh - 6 * step);
+  const budgetLow = Math.max(step, roundDown(min * 0.72, step));
+  let budgetHigh = roundUp((min + lowerMid) / 2, step);
+  if (budgetHigh - budgetLow < minimumBandWidth) {
+    budgetHigh = budgetLow + minimumBandWidth;
   }
 
   const midLow = budgetHigh + step;
-  let midHigh = roundUp(third, step);
-  if (midHigh <= midLow) {
-    midHigh = midLow + 5 * step;
+  let midHigh = roundUp((upperMid + max) / 2, step);
+  if (midHigh - midLow < minimumBandWidth) {
+    midHigh = midLow + minimumBandWidth;
   }
 
   const premiumLow = midHigh + step;
   let premiumHigh = roundUp(max * premiumMultiplier, step);
-  if (premiumHigh <= premiumLow) {
-    premiumHigh = premiumLow + 8 * step;
+  if (premiumHigh - premiumLow < minimumBandWidth) {
+    premiumHigh = premiumLow + minimumBandWidth;
   }
 
   const calibratedSuffix = " Calibrated to benchmark competitor price points.";
