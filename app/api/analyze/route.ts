@@ -2,7 +2,13 @@ import { analyzeMarketInput } from "@/lib/analyze";
 import { AnalyzeInput, Platform, Region } from "@/lib/types";
 import { NextResponse } from "next/server";
 
-const ENABLE_LLM = process.env.ENABLE_LLM === "true";
+const ENABLE_LLM =
+  process.env.ENABLE_LLM === "true" ||
+  Boolean(
+    process.env.OPENAI_API_KEY &&
+      process.env.OPENAI_BASE_URL &&
+      process.env.OPENAI_MODEL
+  );
 const KEYWORD_MIN_LENGTH = 2;
 const KEYWORD_MAX_LENGTH = 80;
 const RATE_LIMIT_WINDOW_MS = 60_000;
@@ -11,6 +17,12 @@ const RATE_LIMIT_MAX_REQUESTS = 40;
 const REGION_OPTIONS: Region[] = ["US", "SEA", "JP"];
 const PLATFORM_OPTIONS: Platform[] = ["Amazon", "TikTok"];
 const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+
+interface RelayRewriteResult {
+  rewritten_keyword: string;
+  reason: string;
+  confidence: number;
+}
 
 const isRegion = (value: string): value is Region =>
   REGION_OPTIONS.includes(value as Region);
@@ -175,21 +187,151 @@ const parseInput = async (request: Request): Promise<AnalyzeInput> => {
   };
 };
 
+const extractMessageContent = (content: unknown): string => {
+  if (typeof content === "string") {
+    return content;
+  }
+
+  if (Array.isArray(content)) {
+    const textPart = content.find(
+      (part) => part && typeof part === "object" && "text" in part
+    );
+
+    if (textPart && typeof textPart.text === "string") {
+      return textPart.text;
+    }
+  }
+
+  return "";
+};
+
+const parseRelayRewrite = (rawText: string): RelayRewriteResult | null => {
+  try {
+    const parsed = JSON.parse(rawText);
+
+    if (!parsed || typeof parsed !== "object") {
+      return null;
+    }
+
+    const rewrittenKeyword =
+      typeof parsed.rewritten_keyword === "string"
+        ? normalizeKeyword(parsed.rewritten_keyword)
+        : "";
+
+    if (!rewrittenKeyword) {
+      return null;
+    }
+
+    return {
+      rewritten_keyword: rewrittenKeyword,
+      reason:
+        typeof parsed.reason === "string" && parsed.reason.trim()
+          ? parsed.reason.trim()
+          : "Rewritten via AI relay.",
+      confidence:
+        typeof parsed.confidence === "number" && Number.isFinite(parsed.confidence)
+          ? Math.max(0, Math.min(1, parsed.confidence))
+          : 0.75
+    };
+  } catch {
+    return null;
+  }
+};
+
+const rewriteKeywordWithRelay = async (
+  input: AnalyzeInput
+): Promise<RelayRewriteResult | null> => {
+  const apiKey = process.env.OPENAI_API_KEY;
+  const baseUrl = process.env.OPENAI_BASE_URL;
+  const model = process.env.OPENAI_MODEL;
+
+  if (!apiKey || !baseUrl || !model) {
+    return null;
+  }
+
+  const response = await fetch(`${baseUrl.replace(/\/$/, "")}/chat/completions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model,
+      temperature: 0.2,
+      messages: [
+        {
+          role: "system",
+          content:
+            'Rewrite the user input into one clean ecommerce product keyword for routing mock market reports. Return strict JSON only: {"rewritten_keyword":"string","reason":"string","confidence":0.0}'
+        },
+        {
+          role: "user",
+          content: `Keyword: ${input.keyword}\nRegion: ${input.region}\nPlatform: ${input.platform}`
+        }
+      ],
+      response_format: { type: "json_object" }
+    }),
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error(`Relay request failed with status ${response.status}`);
+  }
+
+  const payload = await response.json();
+  const content = extractMessageContent(payload?.choices?.[0]?.message?.content);
+  return parseRelayRewrite(content);
+};
+
 export async function POST(request: Request) {
   const requestId = crypto.randomUUID();
 
   try {
     enforceRateLimit(request);
     const input = await parseInput(request);
-    const finalReport = analyzeMarketInput(input, {
-      enableLLM: ENABLE_LLM
+
+    let normalizedInput = input;
+    let routedBy: "relay" | "local" = "local";
+    let routingReason = "Matched with local benchmark routing.";
+    let routingConfidence = 0.68;
+
+    if (ENABLE_LLM) {
+      try {
+        const relayRewrite = await rewriteKeywordWithRelay(input);
+        if (relayRewrite) {
+          normalizedInput = {
+            ...input,
+            keyword: relayRewrite.rewritten_keyword
+          };
+          routedBy = "relay";
+          routingReason = relayRewrite.reason;
+          routingConfidence = relayRewrite.confidence;
+        }
+      } catch (error) {
+        console.error("[analyze_route_relay_fallback]", requestId, error);
+      }
+    }
+
+    const finalReport = analyzeMarketInput(normalizedInput, {
+      enableLLM: routedBy === "relay"
     });
 
-    return NextResponse.json(finalReport, {
+    return NextResponse.json(
+      {
+        ...finalReport,
+        routing: {
+          matchedBy: routedBy,
+          matchedKeyword: normalizedInput.keyword,
+          reason: routingReason,
+          confidence: routingConfidence
+        }
+      },
+      {
       headers: {
         "x-request-id": requestId
       }
-    });
+      }
+    );
   } catch (error) {
     if (error instanceof ApiError) {
       const errorHeaders: Record<string, string> = {

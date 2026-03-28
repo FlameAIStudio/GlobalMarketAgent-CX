@@ -122,15 +122,15 @@ export default function InputForm() {
     <section className="rounded-2xl border border-line/80 bg-panel/85 p-6 shadow-glow backdrop-blur-sm md:p-8">
       <h2 className="text-lg font-semibold text-text md:text-xl">Start Market Analysis</h2>
       <p className="mt-2 max-w-2xl text-sm text-textdim">
-        Input one product idea and generate a structured GTM report in seconds.
+        Input one product idea or a natural-language product brief and generate a structured GTM report in seconds.
       </p>
 
       <form className="mt-6 grid gap-4 md:grid-cols-2" onSubmit={handleSubmit}>
         <label className="md:col-span-2">
-          <span className="mb-2 block text-sm text-textdim">Product keyword</span>
+          <span className="mb-2 block text-sm text-textdim">Product description</span>
           <input
             className="w-full rounded-xl border border-line bg-base/80 px-4 py-3 text-text outline-none transition focus:border-highlight"
-            placeholder="e.g. wireless earbuds"
+            placeholder="e.g. affordable sports earbuds with ANC for Amazon US"
             value={keyword}
             onChange={(event) => setKeyword(event.target.value)}
             required
