@@ -22,20 +22,14 @@ const DEMO_CASES: DemoCase[] = [
     platform: "Amazon"
   },
   {
-    label: "Pet Brush",
-    keyword: "pet grooming brush",
-    region: "SEA",
-    platform: "TikTok"
-  },
-  {
-    label: "Yoga Mat",
-    keyword: "yoga mat",
+    label: "Air Fryer",
+    keyword: "air fryer",
     region: "US",
     platform: "Amazon"
   },
   {
-    label: "Portable Blender",
-    keyword: "portable blender",
+    label: "Robot Vacuum",
+    keyword: "robot vacuum",
     region: "US",
     platform: "Amazon"
   },
@@ -46,16 +40,40 @@ const DEMO_CASES: DemoCase[] = [
     platform: "Amazon"
   },
   {
-    label: "Rice Cooker JP",
-    keyword: "rice cooker",
-    region: "JP",
+    label: "Dash Cam",
+    keyword: "dash cam",
+    region: "US",
     platform: "Amazon"
   },
   {
-    label: "Serum SEA",
-    keyword: "vitamin c serum",
-    region: "SEA",
-    platform: "TikTok"
+    label: "Water Flosser",
+    keyword: "water flosser",
+    region: "US",
+    platform: "Amazon"
+  },
+  {
+    label: "Memory Pillow",
+    keyword: "memory foam pillow",
+    region: "US",
+    platform: "Amazon"
+  },
+  {
+    label: "Cast Iron",
+    keyword: "cast iron skillet",
+    region: "US",
+    platform: "Amazon"
+  },
+  {
+    label: "Resistance Bands",
+    keyword: "resistance bands",
+    region: "US",
+    platform: "Amazon"
+  },
+  {
+    label: "LED Strips",
+    keyword: "led strip lights",
+    region: "US",
+    platform: "Amazon"
   }
 ];
 

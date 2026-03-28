@@ -21,12 +21,15 @@ npm run dev:clean
 ## Demo Inputs
 
 1. `wireless earbuds` + `US` + `Amazon`
-2. `pet grooming brush` + `SEA` + `TikTok`
-3. `yoga mat` + `US` + `Amazon`
-4. `portable blender` + `US` + `Amazon`
-5. `standing desk` + `US` + `Amazon`
-6. `rice cooker` + `JP` + `Amazon`
-7. `vitamin c serum` + `SEA` + `TikTok`
+2. `air fryer` + `US` + `Amazon`
+3. `robot vacuum` + `US` + `Amazon`
+4. `standing desk` + `US` + `Amazon`
+5. `dash cam` + `US` + `Amazon`
+6. `water flosser` + `US` + `Amazon`
+7. `memory foam pillow` + `US` + `Amazon`
+8. `cast iron skillet` + `US` + `Amazon`
+9. `resistance bands` + `US` + `Amazon`
+10. `led strip lights` + `US` + `Amazon`
 
 ## Scoring Profiles
 
