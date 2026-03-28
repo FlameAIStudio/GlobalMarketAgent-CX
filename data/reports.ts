@@ -1,4 +1,5 @@
 import { AnalyzeInput, DatasetCase, MarketReport } from "@/lib/types";
+import { calibrateMarketReport } from "@/lib/calibration";
 
 const FALLBACK_REPORT_TEMPLATE: MarketReport = {
   summary:
@@ -68,17 +69,22 @@ export const buildReportFromDataset = (
   dataset: DatasetCase,
   input: AnalyzeInput
 ): MarketReport => {
+  const calibratedReport = calibrateMarketReport(dataset.report);
   const contextMismatch =
     dataset.region !== input.region || dataset.platform !== input.platform;
 
   if (!contextMismatch) {
-    return contextualizeReport(dataset.report, input);
+    return contextualizeReport(calibratedReport, input);
   }
 
   const sourceLabel = `${dataset.product} (${dataset.platform} ${dataset.region})`;
-  return contextualizeReport(dataset.report, input, sourceLabel);
+  return contextualizeReport(calibratedReport, input, sourceLabel);
 };
 
 export const buildFallbackReport = (input: AnalyzeInput): MarketReport => {
-  return contextualizeReport(FALLBACK_REPORT_TEMPLATE, input, "Fallback benchmark");
+  return contextualizeReport(
+    calibrateMarketReport(FALLBACK_REPORT_TEMPLATE),
+    input,
+    "Fallback benchmark"
+  );
 };

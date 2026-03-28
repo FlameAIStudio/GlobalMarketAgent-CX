@@ -9,6 +9,7 @@ type ScoreProfile = "balanced" | "aggressive" | "conservative";
 
 interface DemoCase {
   label: string;
+  category: string;
   keyword: string;
   region: Region;
   platform: Platform;
@@ -16,61 +17,71 @@ interface DemoCase {
 
 const DEMO_CASES: DemoCase[] = [
   {
-    label: "Earbuds",
+    label: "Wireless Earbuds",
+    category: "Electronics",
     keyword: "wireless earbuds",
     region: "US",
     platform: "Amazon"
   },
   {
     label: "Air Fryer",
+    category: "Home & Kitchen",
     keyword: "air fryer",
     region: "US",
     platform: "Amazon"
   },
   {
     label: "Robot Vacuum",
+    category: "Home Appliances",
     keyword: "robot vacuum",
     region: "US",
     platform: "Amazon"
   },
   {
     label: "Standing Desk",
+    category: "Office",
     keyword: "standing desk",
     region: "US",
     platform: "Amazon"
   },
   {
     label: "Dash Cam",
+    category: "Automotive",
     keyword: "dash cam",
     region: "US",
     platform: "Amazon"
   },
   {
     label: "Water Flosser",
+    category: "Personal Care",
     keyword: "water flosser",
     region: "US",
     platform: "Amazon"
   },
   {
-    label: "Memory Pillow",
+    label: "Memory Foam Pillow",
+    category: "Home & Bedding",
     keyword: "memory foam pillow",
     region: "US",
     platform: "Amazon"
   },
   {
-    label: "Cast Iron",
+    label: "Cast Iron Skillet",
+    category: "Cookware",
     keyword: "cast iron skillet",
     region: "US",
     platform: "Amazon"
   },
   {
     label: "Resistance Bands",
+    category: "Sports & Fitness",
     keyword: "resistance bands",
     region: "US",
     platform: "Amazon"
   },
   {
-    label: "LED Strips",
+    label: "LED Strip Lights",
+    category: "Home Improvement",
     keyword: "led strip lights",
     region: "US",
     platform: "Amazon"
@@ -90,6 +101,8 @@ export default function InputForm() {
     setRegion(demoCase.region);
     setPlatform(demoCase.platform);
   };
+
+  const normalizedKeyword = keyword.trim().toLowerCase();
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -162,17 +175,36 @@ export default function InputForm() {
           </select>
         </label>
 
-        <div className="md:col-span-2 flex flex-wrap gap-2">
-          {DEMO_CASES.map((demoCase) => (
-            <button
-              key={demoCase.label}
-              type="button"
-              className="rounded-full border border-line px-3 py-1.5 text-xs text-textdim transition hover:border-highlight hover:text-text"
-              onClick={() => applyDemoCase(demoCase)}
-            >
-              {demoCase.label}
-            </button>
-          ))}
+        <div className="md:col-span-2">
+          <p className="mb-2 text-xs uppercase tracking-[0.15em] text-textdim">
+            Amazon Top 10 Presets
+          </p>
+          <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-3">
+            {DEMO_CASES.map((demoCase) => {
+              const isActive =
+                normalizedKeyword === demoCase.keyword &&
+                region === demoCase.region &&
+                platform === demoCase.platform;
+
+              return (
+                <button
+                  key={demoCase.label}
+                  type="button"
+                  className={`rounded-xl border px-3 py-2 text-left transition ${
+                    isActive
+                      ? "border-highlight bg-highlight/10 text-text"
+                      : "border-line/90 bg-base/40 text-textdim hover:border-highlight hover:text-text"
+                  }`}
+                  onClick={() => applyDemoCase(demoCase)}
+                >
+                  <span className="block text-sm font-medium">{demoCase.label}</span>
+                  <span className="mt-1 block text-xs text-textdim">
+                    {demoCase.category} · {demoCase.keyword}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         <button

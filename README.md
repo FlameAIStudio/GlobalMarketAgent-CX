@@ -20,16 +20,16 @@ npm run dev:clean
 
 ## Demo Inputs
 
-1. `wireless earbuds` + `US` + `Amazon`
-2. `air fryer` + `US` + `Amazon`
-3. `robot vacuum` + `US` + `Amazon`
-4. `standing desk` + `US` + `Amazon`
-5. `dash cam` + `US` + `Amazon`
-6. `water flosser` + `US` + `Amazon`
-7. `memory foam pillow` + `US` + `Amazon`
-8. `cast iron skillet` + `US` + `Amazon`
-9. `resistance bands` + `US` + `Amazon`
-10. `led strip lights` + `US` + `Amazon`
+1. `Electronics` -> `wireless earbuds` + `US` + `Amazon`
+2. `Home & Kitchen` -> `air fryer` + `US` + `Amazon`
+3. `Home Appliances` -> `robot vacuum` + `US` + `Amazon`
+4. `Office` -> `standing desk` + `US` + `Amazon`
+5. `Automotive` -> `dash cam` + `US` + `Amazon`
+6. `Personal Care` -> `water flosser` + `US` + `Amazon`
+7. `Home & Bedding` -> `memory foam pillow` + `US` + `Amazon`
+8. `Cookware` -> `cast iron skillet` + `US` + `Amazon`
+9. `Sports & Fitness` -> `resistance bands` + `US` + `Amazon`
+10. `Home Improvement` -> `led strip lights` + `US` + `Amazon`
 
 ## Scoring Profiles
 
@@ -52,7 +52,7 @@ Set `ENABLE_LLM=true` to enable a simulated "LLM refinement" step in `/api/analy
 - `POST /api/analyze` validates keyword length and input enums.
 - Rate limit returns `429` with `Retry-After`.
 - Error payload includes `error_code` and `request_id`.
-- Data is benchmark mock data (directional), calibrated for plausible price/rating/review ranges.
+- Data is benchmark mock data (directional), auto-calibrated for plausible price/rating/review ranges based on competitor anchors.
 
 ## GitHub Pages
 
