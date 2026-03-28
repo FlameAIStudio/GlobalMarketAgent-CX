@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-deep: #050a14;
+  --bg-soft: #0d1526;
+  --line: #1f3048;
+  --text: #e8f0ff;
+  --text-dim: #96a7c2;
+  --highlight: #5cd8ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: "Avenir Next", "Segoe UI Variable", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(1000px 500px at 15% -20%, rgba(92, 216, 255, 0.22), transparent 65%),
+    radial-gradient(800px 500px at 90% 10%, rgba(246, 183, 104, 0.14), transparent 55%),
+    linear-gradient(145deg, #050a14 12%, #070f1c 45%, #0c1830 100%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(92, 216, 255, 0.35);
+}
+
+@media print {
+  html,
+  body {
+    max-width: 100%;
+    overflow: visible;
+  }
+
+  body {
+    color: #111827;
+    background: #ffffff;
+    font-size: 12px;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .report-shell {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .print-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border-color: #d1d5db !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+
+  .print-card * {
+    color: #111827 !important;
+  }
+}
