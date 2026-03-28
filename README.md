@@ -1,5 +1,7 @@
 # Global Market Agent (Hackathon MVP)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 AI-powered market research demo built with Next.js + Tailwind.
 
 ## Quick Start
@@ -69,3 +71,8 @@ First-time setup in GitHub:
 3. Push to `main` and wait for `Deploy GitHub Pages` workflow to finish.
 
 Pages runs in static export mode and uses the local analyzer path (no runtime API dependency).
+
+## License
+
+This project is licensed under the MIT License.
+See [LICENSE](./LICENSE) for details.
